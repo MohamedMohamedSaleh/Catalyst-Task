@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import '../errors/exceptions.dart';
 import 'api_services.dart';
 import 'api_interceptors.dart';
 import 'end_ponits.dart';
@@ -9,7 +8,8 @@ class DioService extends ApiServices {
   final Dio dio;
 
   DioService({required this.dio}) {
-    dio.options.baseUrl = EndPoint.baseUrl;
+    dio.options.headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
+    dio.options.baseUrl = EndPoints.baseUrl;
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(LogInterceptor(
       request: true,
@@ -34,10 +34,14 @@ class DioService extends ApiServices {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return ResponseData(message: response.data['message'], isSuccess: true, response: response.data);
+      return ResponseData(
+          message: response.data['message'],
+          isSuccess: true,
+          response: response);
     } on DioException catch (e) {
-      handleDioExceptions(e);
-      return ResponseData(message: e.response!.data['message'], isSuccess: false);
+      // handleDioExceptions(e);
+      return ResponseData(
+          message: e.response!.data['message'], isSuccess: false);
     }
   }
 
@@ -50,11 +54,13 @@ class DioService extends ApiServices {
         data: data,
         queryParameters: queryParameters,
       );
-      return ResponseData(message: '', isSuccess: true, response: response.data);
+      return ResponseData(
+          message: '', isSuccess: true, response: response);
     } on DioException catch (e) {
-      handleDioExceptions(e);
-      return ResponseData(message: e.response!.data['message'], isSuccess: false);
 
+      // handleDioExceptions(e);
+      return ResponseData(
+          message: e.response!.data['message'], isSuccess: false);
     }
   }
 
@@ -71,11 +77,14 @@ class DioService extends ApiServices {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return ResponseData(message: response.data['message'], isSuccess: true, response: response.data);
+      return ResponseData(
+          message: response.data['message'],
+          isSuccess: true,
+          response: response);
     } on DioException catch (e) {
-      handleDioExceptions(e);
-      return ResponseData(message: e.response!.data['message'], isSuccess: false);
-
+      // handleDioExceptions(e);
+      return ResponseData(
+          message: e.response!.data['message'], isSuccess: false);
     }
   }
 
@@ -92,15 +101,17 @@ class DioService extends ApiServices {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      return ResponseData(message: response.data['message'], isSuccess: true, response: response.data);
+      return ResponseData(
+          message: response.data['message'],
+          isSuccess: true,
+          response: response);
     } on DioException catch (e) {
-      handleDioExceptions(e);
-      return ResponseData(message: e.response!.data['message'], isSuccess: false);
-
+      // handleDioExceptions(e);
+      return ResponseData(
+          message: e.response!.data['message'], isSuccess: false);
     }
   }
 }
-
 
 class ResponseData {
   late final String message;

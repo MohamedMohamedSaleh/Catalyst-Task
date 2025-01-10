@@ -1,9 +1,9 @@
-class EndPoint {
+class EndPoints {
   static const String baseUrl = "https://test.catalystegy.com/api/";
   static const String users = "users";
   static const String properties = "properties";
   static const String bookings = "bookings";
-  static  String getUserDataEndPoint(int id) {
+  static String getUserDataEndPoint(int id) {
     return "$users/$id";
   }
 
