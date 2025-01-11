@@ -12,7 +12,7 @@ class MyFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.small(
-      backgroundColor: MyColors.primaryColor,
+      backgroundColor: MyColors.buttonColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100),
       ),

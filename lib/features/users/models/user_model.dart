@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class UserModel {
   late final int id;
   late final String name;
@@ -64,14 +66,14 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'],
-      name: map['name'] ?? '',
-      email: map['email'] ??'',
-      phone: map['phone']??'' ,
-      role: map['role']??'' ,
-      profileImage: map['profile_image']??"",
-      introVideo: map['intro_video']??"",
-      createdAt: map['created_at']??"",
-      updatedAt: map['updated_at']??"",
+      name: map['name'] ?? 'name',
+      email: map['email'] ??'name@example.com',
+      phone: map['phone']??'01200564211' ,
+      role: map['role']??'Client' ,
+      profileImage:map['profile_image'] == null? "https://bio3.catalyst.com.eg/public/Catalyst_portfolio/IMG_0997%20(1).jpg": map['profile_image'].toString().startsWith("http")? map['profile_image'] : "https://test.catalystegy.com/public/${map['profile_image']}" ,
+      introVideo: map['intro_video']??"https://bio3.catalyst.com.eg/public/Catalyst_portfolio/techtest.mp4",
+      createdAt: DateFormat('MMM d, h:mm a').format((DateTime.parse(map['created_at']??""))),
+      updatedAt: DateFormat('MMM d, h:mm a').format((DateTime.parse(map['updated_at']??""))),
     );
   }
 

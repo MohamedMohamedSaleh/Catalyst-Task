@@ -35,6 +35,7 @@ void showMessage(
       SnackBar(
         content: Text(
           message,
+          style: TextStyle(color: MyColors.whiteColor, fontSize: 13.sp),
           textAlign: TextAlign.center,
         ),
         duration:  Duration(seconds: duration),
@@ -42,7 +43,7 @@ void showMessage(
         behavior: SnackBarBehavior.floating,
         backgroundColor: (type == MessageType.success)
             ? MyColors.primaryColor.withOpacity(.7)
-            : Colors.redAccent,
+            : const Color.fromARGB(255, 245, 129, 129),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(11.r),
         ),
