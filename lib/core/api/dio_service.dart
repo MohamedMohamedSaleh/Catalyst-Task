@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import 'api_services.dart';
-import 'api_interceptors.dart';
 import 'end_ponits.dart';
 
 class DioService extends ApiServices {
@@ -10,15 +9,15 @@ class DioService extends ApiServices {
   DioService({required this.dio}) {
     dio.options.headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     dio.options.baseUrl = EndPoints.baseUrl;
-    dio.interceptors.add(ApiInterceptor());
-    dio.interceptors.add(LogInterceptor(
-      request: true,
-      requestHeader: true,
-      requestBody: true,
-      responseHeader: true,
-      responseBody: true,
-      error: true,
-    ));
+    // dio.interceptors.add(ApiInterceptor());
+    // dio.interceptors.add(LogInterceptor(
+    //   request: true,
+    //   requestHeader: true,
+    //   requestBody: true,
+    //   responseHeader: true,
+    //   responseBody: true,
+    //   error: true,
+    // ));
   }
 
   @override
@@ -60,7 +59,7 @@ class DioService extends ApiServices {
 
       // handleDioExceptions(e);
       return ResponseData(
-          message: e.response!.data['message'], isSuccess: false);
+          message: e.response?.data['message']?? "Error occured", isSuccess: false);
     }
   }
 
@@ -84,7 +83,7 @@ class DioService extends ApiServices {
     } on DioException catch (e) {
       // handleDioExceptions(e);
       return ResponseData(
-          message: e.response!.data['message'], isSuccess: false);
+          message: e.response?.data['message']?? "Error occured", isSuccess: false);
     }
   }
 
@@ -108,7 +107,7 @@ class DioService extends ApiServices {
     } on DioException catch (e) {
       // handleDioExceptions(e);
       return ResponseData(
-          message: e.response!.data['message'], isSuccess: false);
+          message: e.response?.data['message'] ?? "Error occured", isSuccess: false);
     }
   }
 }

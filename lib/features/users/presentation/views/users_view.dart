@@ -1,10 +1,10 @@
-
 import 'package:catalyst_task/core/helpers/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kiwi/kiwi.dart';
 
+import '../../../../core/constants/my_colors.dart';
 import '../../../../core/widgets/shimar_loading_widget.dart';
 import '../../logic/cubit/users_cubit.dart';
 import '../widgets/custom_category_button_widget.dart';
@@ -93,26 +93,32 @@ class _UsersViewState extends State<UsersView> {
                 ),
               ],
               floatHeaderSlivers: true,
-              body: ListView.builder(
-                padding: EdgeInsets.only(
-                  bottom: 16.h,
-                ),
-                itemBuilder: (context, index) => UserItemWidget(
-                  model: type == "all"
-                      ? allUsers[index]
+              body: RefreshIndicator(
+                onRefresh: () => usersCubit.showUsers(),
+                color: MyColors.whiteColor,
+                backgroundColor: MyColors.buttonColor,
+                displacement: 20,
+                child: ListView.builder(
+                  padding: EdgeInsets.only(
+                    bottom: 16.h,
+                  ),
+                  itemBuilder: (context, index) => UserItemWidget(
+                    model: type == "all"
+                        ? allUsers[index]
+                        : type == "owner"
+                            ? ownerUsers[index]
+                            : type == "admin"
+                                ? adminUsers[index]
+                                : clientUsers[index],
+                  ),
+                  itemCount: type == "all"
+                      ? allUsers.length
                       : type == "owner"
-                          ? ownerUsers[index]
+                          ? ownerUsers.length
                           : type == "admin"
-                              ? adminUsers[index]
-                              : clientUsers[index],
+                              ? adminUsers.length
+                              : clientUsers.length,
                 ),
-                itemCount: type == "all"
-                    ? allUsers.length
-                    : type == "owner"
-                        ? ownerUsers.length
-                        : type == "admin"
-                            ? adminUsers.length
-                            : clientUsers.length,
               ),
             );
           } else {

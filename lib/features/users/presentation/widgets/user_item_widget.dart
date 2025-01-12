@@ -1,4 +1,3 @@
-
 import 'package:catalyst_task/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,7 @@ import '../../../../core/widgets/app_image.dart';
 import '../../../../core/widgets/custom_icon_button_widget.dart';
 import '../../logic/cubit/users_cubit.dart';
 import '../../models/user_model.dart';
-import '../views/update_user_view.dart';
+import '../views/add_or_update_user_view.dart';
 
 class UserItemWidget extends StatelessWidget {
   const UserItemWidget({super.key, required this.model});
@@ -27,14 +26,17 @@ class UserItemWidget extends StatelessWidget {
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Align(
           alignment: Alignment.bottomCenter,
-          child: AppImage(
-            // "https://bio3.catalyst.com.eg/public/Catalyst_portfolio/IMG_0997%20(1).jpg",
-            model.profileImage,
-            // height: 120,
-            width: 86,
-            placeholderHight: 120,
-            // height: 125,
-            fit: BoxFit.cover,
+          child: Hero(
+            tag: model.id,
+            child: AppImage(
+              // "https://bio3.catalyst.com.eg/public/Catalyst_portfolio/IMG_0997%20(1).jpg",
+              model.profileImage,
+              // height: 120,
+              width: 86,
+              placeholderHight: 120,
+              // height: 125,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         const SizedBox(
@@ -83,7 +85,7 @@ class UserItemWidget extends StatelessWidget {
                       width: 10,
                     ),
                     GestureDetector(
-                      onTap: () => context.push(UpdateUserView(
+                      onTap: () => context.push(AddOrUpdateUserView(
                         user: model,
                       )),
                       child: const CustomIcontButtonWidget(

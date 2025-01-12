@@ -1,7 +1,9 @@
 import 'package:catalyst_task/core/helpers/functions.dart';
 import 'package:catalyst_task/features/users/models/user_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/api/dio_service.dart';
 import '../../../../core/api/end_ponits.dart';
@@ -58,22 +60,28 @@ class UsersCubit extends Cubit<UsersState> {
     }
   }
 
-  Future<void> updateUser({
-    required int id,
+  Future<void> addOrUpdateUser({
+     int? id,
     required String name,
     required String email,
     required String phone,
     required String role,
+    String? profileImage,
+    bool isUpdate = false,
   }) async {
     emit(UpdateUserLoading());
-
+    MultipartFile? image;
+    if (profileImage != null) {
+      image = await uploadImageToAPI(XFile(profileImage));
+    }
     final response = await dioService.post(
-      EndPoints.getUserDataEndPoint(id),
+      isUpdate ? EndPoints.getUserDataEndPoint(id!) : EndPoints.users,
       data: {
         "name": name,
         "email": email,
         "phone": phone,
         "role": role,
+        "profile_image": image,
       },
       isFromData: true,
     );
@@ -86,7 +94,45 @@ class UsersCubit extends Cubit<UsersState> {
       Navigator.of(navigatorKey.currentContext!).pop();
     } else {
       showMessage(message: response.message, type: MessageType.faild);
-      emit(UpdateUserError(message: "Erroe occured while Updating user"));
+      emit(UpdateUserError(
+          message: isUpdate
+              ? "Erroe occured while Updating user"
+              : "Erroe occured while Adding user"));
     }
   }
+  // Future<void> updateUser({
+  //   required int id,
+  //   required String name,
+  //   required String email,
+  //   required String phone,
+  //   required String role,
+  //    String? profileImage,
+  // }) async {
+  //   print(profileImage);
+  //   emit(UpdateUserLoading());
+  //   MultipartFile? image;
+  //  if (profileImage != null)  image = await uploadImageToAPI(XFile(profileImage));
+  //   final response = await dioService.post(
+  //     EndPoints.getUserDataEndPoint(id),
+  //     data: {
+  //       "name": name,
+  //       "email": email,
+  //       "phone": phone,
+  //       "role": role,
+  //       "profile_image": image,
+  //     },
+  //     isFromData: true,
+  //   );
+
+  //   if (response.isSuccess) {
+  //     final message = response.response!.data['message'];
+
+  //     await showUsers(isRefresh: false);
+  //     showMessage(message: message, type: MessageType.success);
+  //     Navigator.of(navigatorKey.currentContext!).pop();
+  //   } else {
+  //     showMessage(message: response.message, type: MessageType.faild);
+  //     emit(UpdateUserError(message: "Erroe occured while Updating user"));
+  //   }
+  // }
 }

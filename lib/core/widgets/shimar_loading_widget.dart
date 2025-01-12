@@ -3,7 +3,28 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'shimar_widget.dart';
-
+Widget propertiesLoadingWidget() =>   GridView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemBuilder: (context, index) {
+                    return   ShimmerWidget.rectangular(
+                height: 115.h,
+                shapeBorder: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+              ) ;
+                  },
+                  itemCount:8,
+                );
+              
 Widget usersLoadingWidget() => Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
@@ -17,7 +38,7 @@ Widget usersLoadingWidget() => Padding(
               ),
               ShimmerWidget.rectangular(
                 height: 30.h,
-                width: 70.w,
+                width: 60.w,
                 shapeBorder: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(30),
@@ -29,7 +50,7 @@ Widget usersLoadingWidget() => Padding(
               ),
               ShimmerWidget.rectangular(
                 height: 30.h,
-                width: 65.w,
+                width: 60.w,
                 shapeBorder: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(30),
@@ -41,7 +62,7 @@ Widget usersLoadingWidget() => Padding(
               ),
               ShimmerWidget.rectangular(
                 height: 30.h,
-                width: 65.w,
+                width: 60.w,
                 shapeBorder: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(30),
@@ -53,7 +74,7 @@ Widget usersLoadingWidget() => Padding(
               ),
               ShimmerWidget.rectangular(
                 height: 30.h,
-                width: 65.w,
+                width: 60.w,
                 shapeBorder: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(30),
@@ -65,7 +86,6 @@ Widget usersLoadingWidget() => Padding(
           const SizedBox(
             height: 16,
           ),
-        
           Expanded(
             child: ListView.separated(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 8),

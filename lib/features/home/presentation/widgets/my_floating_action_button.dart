@@ -1,11 +1,15 @@
+import 'package:catalyst_task/core/helpers/extensions.dart';
 import 'package:catalyst_task/features/home/logic/cubit/home_cubit.dart';
+import 'package:catalyst_task/features/properties/presentation/views/add_property_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/my_colors.dart';
+import '../../../users/presentation/views/add_or_update_user_view.dart';
 
 class MyFloatingActionButton extends StatelessWidget {
   const MyFloatingActionButton({
-    super.key, required this.homeCubit,
+    super.key,
+    required this.homeCubit,
   });
   final HomeCubit homeCubit;
 
@@ -19,13 +23,15 @@ class MyFloatingActionButton extends StatelessWidget {
       onPressed: () {
         switch (homeCubit.currentPage) {
           case 0:
-          print("Add new user");
+            context.push(const AddOrUpdateUserView(
+              isAddUser: true,
+            ));
             break;
           case 1:
-          print("Add new property");
+            context.push(const AddPropertyView());
             break;
           case 2:
-          print("Add new booking");
+            print("Add new booking");
             break;
         }
       },

@@ -45,7 +45,12 @@ class _CustomSelectedWidgetState extends State<CustomSelectedWidget> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
      
-      validator: widget.validator,
+      validator: (value){
+        if(value?.isEmpty ?? true){
+          return 'Please enter your ${widget.lableText}';
+        }
+        return null;
+      },
       borderRadius: BorderRadius.circular(15.r),
       items: selectList.map((String item) {
         return DropdownMenuItem<String>(
@@ -83,7 +88,7 @@ class _CustomSelectedWidgetState extends State<CustomSelectedWidget> {
             const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10).w,
         labelStyle: TextStyle(
           color: MyColors.primaryColor,
-          fontSize: 14.sp,
+          fontSize: 15.sp,
         ),
         labelText: widget.lableText,
       ),

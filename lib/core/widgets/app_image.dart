@@ -10,7 +10,8 @@ class AppImage extends StatelessWidget {
     this.height,
     this.width,
     this.fit = BoxFit.scaleDown,
-    this.color, this.placeholderHight,
+    this.color,
+    this.placeholderHight,
   });
   final String path;
   final double? height, width, placeholderHight;
@@ -30,6 +31,7 @@ class AppImage extends StatelessWidget {
       );
     } else if (path.startsWith('http')) {
       return CachedNetworkImage(
+        alignment: Alignment.topCenter,
         imageUrl: path,
         placeholder: (context, url) => SizedBox(
           height: placeholderHight?.h,
